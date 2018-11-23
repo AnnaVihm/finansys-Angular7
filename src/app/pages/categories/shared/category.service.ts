@@ -30,9 +30,9 @@ export class CategoryService {
 
   create(category : Category):Observable<Category>{
     return this.http.post(this.appiPath, category).pipe(
-      catchError(this.handleError),
-      map(this.jsonDataToCategy)
-      )
+    catchError(this.handleError),
+    map(this.jsonDataToCategy)
+    )
   }
 
   update(category: Category):Observable<Category>{
@@ -48,7 +48,6 @@ export class CategoryService {
     return this.http.delete(url).pipe(
       catchError(this.handleError),
       map(() => null)
-      
     )
   }
 

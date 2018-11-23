@@ -8,8 +8,8 @@ export class InMemoryDataBase implements InMemoryDbService{
             {id:2, nome:"Saúde", descricao:"Plano de Saúde e Remédios"},
             {id:3, nome:"Moradia", descricao:"Pagamentos de Contas de casa"},
             {id:4, nome:"Sálario", descricao:"Recebimento de salario"},
-            
         ];
+        
         return {categories};
     }
 }
