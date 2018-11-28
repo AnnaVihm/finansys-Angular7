@@ -4,7 +4,7 @@ import { ActivatedRoute, Route, Router } from '@angular/router'
 
 import { CategoryService } from '../shared/category.service';
 import { switchMap } from "rxjs/operators";
-import toastr from "toaster";
+import swal from 'sweetalert';
 import { Category } from '../shared/category.model';
 
 @Component({
@@ -24,7 +24,8 @@ export class CategoryFormComponent implements OnInit, AfterContentChecked {
   constructor(private categoryService : CategoryService,
               private route: ActivatedRoute,
               private router: Router,
-              private formBiulder : FormBuilder) { }
+              private formBiulder : FormBuilder,
+             ) { }
 
   ngOnInit() {
     this.setcurrentAction();
@@ -32,9 +33,18 @@ export class CategoryFormComponent implements OnInit, AfterContentChecked {
     this.loadCategory
   }
 
-  /*ngAfterContentChecked(){
+  ngAfterContentChecked(){
     this.setPageTitle();
-  }*/
+  }
+
+  submitCategory(){
+    this.submittingForm = true;
+    if(this.currentAction == 'new'){
+      this.createCategory();
+    }else{
+    
+    }
+  }
 
   //Metodos Privados
 
@@ -66,4 +76,39 @@ export class CategoryFormComponent implements OnInit, AfterContentChecked {
       )
     }
   }
+
+  private setPageTitle(){
+    if(this.currentAction == 'new'){
+      this.pageTitle = "Cadatro de nova Categoria"
+    }else{
+      const categoryName = this.category.nome || ""
+      this.pageTitle = "Editando Categoria :"+ categoryName;
+    }
+  }
+
+  private createCategory(category : Category){
+   // const category: Category = Object.assign(new Category(), this.categoryForm.value);
+    this.categoryService.create(category).subscribe(
+      category => this.actionsForSucess(category),
+     // error => this.actionsForError(error)
+    )
+  }
+
+  private actionsForSucess(category: Category){
+
+
+    //redireciona a página ao form edit pelo novo id
+    
+  }
+
+  /*private actionsForError(error){
+
+    this.submittingForm = false;
+    if(error.status === 422){
+      this.serverErrorMessagens = JSON.parse(error._body).erros;
+      ["Nome já existe", "O email não pode ficar em branco"]
+    }else{
+      this.serverErrorMessagens = ["Falha na comunicação com o servidor. Por favor tente mais tarde"]
+    }
+  }*/
 }
