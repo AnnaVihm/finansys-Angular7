@@ -92,6 +92,8 @@ export class CategoryFormComponent implements OnInit, AfterContentChecked {
       category => this.actionsForSucess(category),
      // error => this.actionsForError(error)
     )
+
+    
   }
 
   private actionsForSucess(category: Category){
